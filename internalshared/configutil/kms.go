@@ -23,7 +23,6 @@ import (
 	"github.com/hashicorp/go-kms-wrapping/wrappers/awskms/v2"
 	"github.com/hashicorp/go-kms-wrapping/wrappers/azurekeyvault/v2"
 	"github.com/hashicorp/go-kms-wrapping/wrappers/gcpckms/v2"
-	"github.com/hashicorp/go-kms-wrapping/wrappers/huaweicloudkms/v2"
 	"github.com/hashicorp/go-kms-wrapping/wrappers/ocikms/v2"
 	"github.com/hashicorp/go-kms-wrapping/wrappers/transit/v2"
 	"github.com/hashicorp/go-multierror"
@@ -377,7 +376,7 @@ func GetGCPCKMSKMSFunc(kms *KMS, opts ...wrapping.Option) (wrapping.Wrapper, map
 }
 
 func GetHuaweiCloudKMSFunc(kms *KMS, opts ...wrapping.Option) (wrapping.Wrapper, map[string]string, error) {
-	wrapper := huaweicloudkms.NewWrapper()
+	wrapper := NewWrapper()
 	wrapperInfo, err := wrapper.SetConfig(context.Background(), append(opts, wrapping.WithDisallowEnvVars(true), wrapping.WithConfigMap(kms.Config))...)
 	if err != nil {
 		// If the error is any other than logical.KeyNotFoundError, return the error
